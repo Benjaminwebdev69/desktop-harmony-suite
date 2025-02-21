@@ -11,12 +11,13 @@ import {
   Folder,
   Globe,
   House,
+  LucideIcon,
 } from "lucide-react";
 
 interface DesktopIcon {
   id: number;
   name: string;
-  icon: React.ComponentType;
+  icon: LucideIcon;  // Changed to LucideIcon type
 }
 
 const apps: DesktopIcon[] = [
@@ -53,25 +54,28 @@ const Desktop = () => {
 
       {/* Desktop Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 mt-20">
-        {apps.map((app) => (
-          <div
-            key={app.id}
-            className="group flex flex-col items-center justify-center p-4 rounded-xl 
-                     backdrop-blur-sm bg-white/5 hover:bg-white/10 
-                     transition-all duration-300 cursor-pointer
-                     hover:shadow-lg animate-fade-in"
-          >
+        {apps.map((app) => {
+          const Icon = app.icon;
+          return (
             <div
-              className="p-3 rounded-full bg-white/10 group-hover:bg-white/20 
-                       transition-all duration-300 group-hover:animate-icon-hover"
+              key={app.id}
+              className="group flex flex-col items-center justify-center p-4 rounded-xl 
+                       backdrop-blur-sm bg-white/5 hover:bg-white/10 
+                       transition-all duration-300 cursor-pointer
+                       hover:shadow-lg animate-fade-in"
             >
-              <app.icon className="w-8 h-8" />
+              <div
+                className="p-3 rounded-full bg-white/10 group-hover:bg-white/20 
+                         transition-all duration-300 group-hover:animate-icon-hover"
+              >
+                <Icon className="w-8 h-8" />
+              </div>
+              <span className="mt-3 text-sm font-light opacity-90 group-hover:opacity-100">
+                {app.name}
+              </span>
             </div>
-            <span className="mt-3 text-sm font-light opacity-90 group-hover:opacity-100">
-              {app.name}
-            </span>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
